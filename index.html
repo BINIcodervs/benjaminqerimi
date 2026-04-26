@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+<meta name="google-site-verification" content="Focc1wuSuHAQlbQrgfBoXGuu3tMMiQTeT2dioFC9FWY" />
+
+  <title>Benjamin Qerimi · Web Architect</title>
+  <meta name="description" content="Benjamin Qerimi – bold, geometric web design & development. Premium WordPress and custom sites with vibrant masculine energy.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0F0F0F;
+      --text-light: #F5F5F5;
+      --white: #FFFFFF;
+      --cyan: #00D4FF;
+      --orange: #FF4D00;
+      --gold: #FFD700;
+      --charcoal: #1A1A1A;
+      --border-radius-circle: 50%;
+      --font-heading: 'Montserrat', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-light);
+      font-family: var(--font-body);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* subtle texture */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.02) 0%, transparent 25%),
+                        repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 8px);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      margin-bottom: 2.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    h2::after {
+      content: "";
+      position: absolute;
+      bottom: -12px;
+      left: 0;
+      width: 70px;
+      height: 6px;
+      background: var(--cyan);
+      border-radius: 100px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ---- CIRCLE MOTIFS (background patterns) ---- */
+    .circle-pattern {
+      position: absolute;
+      border: 1.5px dashed rgba(0, 212, 255, 0.2);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ---- NAVIGATION ---- */
+    .navbar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: rgba(15, 15, 15, 0.92);
+      backdrop-filter: none; /* no blur */
+      border-bottom: 1px solid rgba(255,215,0,0.15);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: 1.6rem;
+      letter-spacing: 2px;
+      color: var(--gold);
+      position: relative;
+    }
+    .logo .circle-behind {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      background: var(--cyan);
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: middle;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+      border: 2px solid var(--gold);
+    }
+    .logo .circle-behind::after {
+      content: "";
+      display: none;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    .nav-item {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 1.5px;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .nav-item::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--cyan);
+      border-radius: 50px;
+      transition: width 0.35s ease;
+    }
+    .nav-item:hover {
+      color: var(--cyan);
+    }
+    .nav-item:hover::after {
+      width: 100%;
+    }
+
+    /* circular hover effect for menu (cyan fill) */
+    .nav-item.circle-hover {
+      transition: background 0.2s, color 0.2s, border-radius 0.2s;
+    }
+    .nav-item.circle-hover:hover {
+      background: transparent;
+      color: var(--cyan) !important;
+      border-radius: 0;
+      padding: 0.5rem 0;
+    }
+
+    .lang-switch {
+      display: none;
+      gap: 8px;
+      margin-left: 10px;
+    }
+    .lang-btn {
+      background: transparent;
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      font-weight: 700;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+    }
+    .lang-btn.active {
+      background: var(--gold);
+      color: var(--bg);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .hamburger span {
+      width: 28px;
+      height: 3px;
+      background: var(--white);
+      margin: 3px 0;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    /* Mobile menu fullscreen */
+    .mobile-menu {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100vh;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      transform: translateX(100%);
+      transition: transform 0.4s ease;
+      z-index: 999;
+    }
+    .mobile-menu.active {
+      transform: translateX(0);
+    }
+    .mobile-menu a {
+      font-size: 2rem;
+      font-family: var(--font-heading);
+      color: var(--white);
+      text-decoration: none;
+      padding: 0.8rem 2.5rem;
+      border-radius: 60px;
+      border: 2px solid var(--cyan);
+      background: transparent;
+      transition: 0.2s;
+      width: 250px;
+      text-align: center;
+    }
+    .mobile-menu a:hover {
+      background: var(--cyan);
+      color: var(--bg);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 2rem 0;
+    }
+    .hero .container {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    .hero-title {
+      font-size: clamp(3.5rem, 12vw, 7rem);
+      line-height: 1;
+      color: var(--white);
+    }
+    .hero-sub {
+      font-size: 1.5rem;
+      color: var(--cyan);
+      margin: 1.5rem 0 2.5rem;
+      font-weight: 600;
+      text-transform: none;
+      font-family: var(--font-body);
+    }
+    .btn-group {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.2rem;
+      border-radius: 60px;
+      font-weight: 800;
+      text-decoration: none;
+      font-family: var(--font-heading);
+      letter-spacing: 1px;
+      transition: all 0.25s;
+      border: 2.5px solid;
+      text-align: center;
+    }
+    .btn-primary {
+      background: var(--cyan);
+      border-color: var(--cyan);
+      color: var(--bg);
+    }
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--cyan);
+    }
+    .btn-outline {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+    .btn-outline:hover {
+      background: var(--orange);
+      color: var(--bg);
+    }
+
+    .hero-portrait {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      border: 6px solid var(--gold);
+      padding: 8px;
+      background: transparent url('./Benjamin.jpg') center/cover no-repeat;
+      box-shadow: 0 0 0 2px rgba(255,215,0,0.2);
+      animation: pulseGlow 3s infinite;
+    }
+    .hero-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      opacity: 1 !important;
+    }
+    
+    .about-portrait img {
+      width: 100%;
+      border-radius: 50%;
+      display: block;
+      opacity: 1 !important;
+    }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(255,215,0,0.5); }
+      70% { box-shadow: 0 0 0 18px rgba(255,215,0,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,215,0,0); }
+    }
+
+    .scroll-prompt {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--cyan);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: bounce 2s infinite;
+    }
+    .scroll-prompt i {
+      color: var(--cyan);
+      font-size: 1.2rem;
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .about-portrait {
+      width: 100%;
+      max-width: 380px;
+      border-radius: 50%;
+      border: 5px solid var(--gold);
+      padding: 6px;
+      background: url('./Benjamin.jpg') center/cover no-repeat;
+      aspect-ratio: 1/1;
+    }
+    .bio-text {
+      font-size: 1.2rem;
+    }
+    .quick-facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      margin: 2rem 0;
+    }
+    .fact-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid var(--cyan);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: #151515;
+    }
+    .fact-number {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold);
+    }
+    .contact-details {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    /* Skills rings */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.5rem;
+    }
+    .skill-item {
+      text-align: center;
+    }
+    .progress-ring {
+      width: 130px;
+      margin: 0 auto;
+    }
+    .skill-label {
+      font-weight: 800;
+      margin-top: 0.8rem;
+      font-size: 1rem;
+    }
+
+    /* Portfolio cards */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .project-card {
+      background: #181818;
+      border-radius: 24px;
+      padding: 1.8rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid #2a2a2a;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 30px -10px rgba(0,212,255,0.2);
+    }
+    .card-circle-mask {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: var(--cyan);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: black;
+      font-weight: 900;
+      transition: all 0.4s;
+    }
+    .project-card:hover .card-circle-mask {
+      background: var(--orange);
+      transform: scale(1.1);
+    }
+    .project-title {
+      font-size: 1.8rem;
+    }
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 1rem 0;
+    }
+    .tag {
+      background: #2a2a2a;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .card-links {
+      display: flex;
+      gap: 1.2rem;
+    }
+
+    /* mottos section - HIDDEN */
+    .mottos-grid {
+      display: none;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.8rem;
+    }
+    .motto-circle {
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      background: #141414;
+      border: 2px solid var(--orange);
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: 0.25s;
+    }
+    .motto-circle:hover {
+      border-color: var(--cyan);
+    }
+
+    /* testimonials */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 2rem;
+    }
+    .testimonial-card {
+      background: #151515;
+      border-radius: 40px;
+      padding: 2rem;
+      border: 1px solid #333;
+    }
+    .client-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+    }
+
+    /* contact form */
+    .contact-form input, .contact-form textarea {
+      background: #1e1e1e;
+      border: 1px solid #444;
+      color: white;
+      border-radius: 40px;
+      padding: 1rem 1.5rem;
+      width: 100%;
+    }
+    .submit-btn {
+      background: var(--cyan);
+      border: none;
+      border-radius: 60px;
+      padding: 1rem 2.5rem;
+      font-weight: 900;
+      cursor: pointer;
+      width: fit-content;
+    }
+
+    .footer {
+      border-top: 1px solid #2a2a2a;
+      padding: 2rem 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .nav-menu { display: none; }
+      .hamburger { display: flex; }
+      .hero .container { grid-template-columns: 1fr; text-align: center; }
+      .hero-portrait { margin-top: 2rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr 1fr; }
+      .mottos-grid { grid-template-columns: 1fr 1fr; }
+      .testimonial-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .portfolio-grid { grid-template-columns: 1fr; }
+    }
+
+    /* scroll progress circle */
+    .scroll-progress-circle {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: conic-gradient(var(--cyan) 0deg, #333 0deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99;
+    }
+    .inner-circle {
+      width: 38px;
+      height: 38px;
+      background: var(--bg);
+      border-radius: 50%;
+    }
+
+    .rotating-svg-bg {
+      position: absolute;
+      width: 600px;
+      opacity: 0.08;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sticky Nav -->
+<nav class="navbar">
+  <div class="logo">
+    <span class="circle-behind"></span>BENJAMIN QERIMI
+  </div>
+  <div class="nav-menu">
+    <a href="#home" class="nav-item circle-hover">HOME</a>
+    <a href="#about" class="nav-item circle-hover">ABOUT</a>
+    <a href="#work" class="nav-item circle-hover">WORK</a>
+    <a href="#skills" class="nav-item circle-hover">SKILLS</a>
+    <a href="#contact" class="nav-item circle-hover">CONTACT</a>
+    <div class="lang-switch">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="sq">SQ</button>
+    </div>
+  </div>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home">HOME</a><a href="#about">ABOUT</a><a href="#work">WORK</a>
+  <a href="#skills">SKILLS</a><a href="#contact">CONTACT</a>
+</div>
+
+<!-- Scroll progress circle -->
+<div class="scroll-progress-circle" id="progressCircle">
+  <div class="inner-circle"></div>
+</div>
+
+<main>
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div>
+        <h1 class="hero-title">BENJAMIN<br>QERIMI</h1>
+        <div class="hero-sub">Web Architect • Bold Digital Experiences • Pure Design That Commands Attention</div>
+        <div class="btn-group">
+          <a href="#work" class="btn btn-primary">VIEW MY WORK</a>
+          <a href="#contact" class="btn btn-outline">LET'S BUILD SOMETHING POWERFUL</a>
+        </div>
+      </div>
+      <div class="hero-portrait">
+      </div>
+    </div>
+    <div class="scroll-prompt"><i class="fas fa-arrow-down"></i></div>
+    <div class="circle-pattern" style="width:400px; height:400px; top:10%; right:5%;"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" style="padding: 100px 0;">
+    <div class="container">
+      <h2>THE MAN BEHIND THE CODE</h2>
+      <div class="about-grid">
+        <div class="about-portrait">
+        </div>
+        <div>
+          <p class="bio-text">Benjamin Qerimi is a passionate web designer & developer who crafts digital experiences that combine raw masculine strength with vibrant, unforgettable energy. Specializing in WordPress, custom development, UI/UX, and high-converting websites, he turns bold visions into powerful online realities. With a relentless drive for perfection and a signature circle-based aesthetic, Benjamin has built websites that don’t just look good — they dominate.</p>
+          <div class="quick-facts">
+            <div class="fact-circle"><span class="fact-number">3+</span><span>Years</span></div>
+            <div class="fact-circle"><span class="fact-number">30+</span><span>Projects</span></div>
+            <div class="fact-circle"><span class="fact-number">100%</span><span>Satisfied</span></div>
+            <div class="fact-circle"><span class="fact-number">All</span><span>Countries</span></div>
+          </div>
+          <div class="contact-details">
+            <span><i class="fas fa-envelope" style="color:var(--cyan);"></i> Benjaminnqerimi@gmail.com</span>
+            <span><i class="fas fa-envelope"></i> benjaminnn.56789@gmail.com</span>
+            <span><i class="fas fa-phone-alt" style="color:var(--orange);"></i> +383 45 519 751</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" style="padding: 80px 0; background: #0c0c0c;">
+    <div class="container">
+      <h2>CRAFTED WITH PRECISION</h2>
+      <div class="skills-grid" id="skillsContainer"></div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" style="padding: 100px 0;">
+    <div class="container">
+      <h2>SELECTED MASTERPIECES</h2>
+      <div class="portfolio-grid" id="portfolioGrid"></div>
+    </div>
+  </section>
+
+  
+
+  <!-- TESTIMONIALS -->
+  <section style="padding: 80px 0;">
+    <div class="container">
+      <h2>WHAT THEY SAY</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card"><img src="https://i.pravatar.cc/150?img=7" class="client-avatar"><p style="margin:1.5rem 0">"Benjamin completely transformed our online presence. His attention to detail and creative approach resulted in a 150% increase in online sales within 3 months."</p><strong>— ALBAN S., </strong></div>
+        <div class="testimonial-card"><img src="https://i.pravatar.cc/150?img=12" class="client-avatar"><p style="margin:1.5rem 0">"Working with Benjamin was seamless. He understood our vision for the educational platform and delivered something beyond our expectations. Highly professional."</p><strong>— ALTIN M., </strong></div>
+        <div class="testimonial-card"><img src="https://i.pravatar.cc/150?img=32" class="client-avatar"><p style="margin:1.5rem 0">"Best investment we made for our business. Benjamin's design solutions are innovative and user-focused. He truly is a web architect who thinks strategically."</p><strong>— FATMIRE K.,</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="padding: 80px 0; background: #0b0b0b;">
+    <div class="container" style="max-width:800px; text-align:center;">
+      <h2 style="display:block; text-align:center;">LET'S CREATE SOMETHING LEGENDARY</h2>
+      <div style="display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin:2rem 0;">
+        <div style="background:#151515; border-radius:60px; padding:1rem 2rem;"><i class="fas fa-envelope" style="color:var(--cyan);"></i> Benjaminnqerimi@gmail.com</div>
+        <div style="background:#151515; border-radius:60px; padding:1rem 2rem;"><i class="fas fa-phone"></i> +383 45 519 751</div>
+      </div>
+      <form class="contact-form" id="contactForm">
+        <input type="text" id="name" placeholder="Name" style="margin-bottom:1rem;" required><br>
+        <input type="email" id="email" placeholder="Email" required><br>
+        <textarea id="message" rows="4" placeholder="Message" style="margin:1rem 0;" required></textarea><br>
+        <button type="submit" class="submit-btn">SEND MESSAGE <i class="fas fa-paper-plane"></i></button>
+      </form>
+      <div style="margin-top:3rem; display:flex; gap:1.5rem; justify-content:center;">
+        <a href="#" style="color:var(--cyan); font-size:2rem;"><i class="fab fa-linkedin"></i></a>
+        <a href="#" style="color:var(--orange); font-size:2rem;"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap;">
+      <div>© 2026 Benjamin Qerimi <span style="color:var(--gold);">●</span> All Rights Reserved</div>
+      <div>Benjaminnqerimi@gmail.com  |  +383 45 519 751</div>
+      <div>Made with pure design and unstoppable drive.</div>
+    </div>
+  </footer>
+</main>
+
+<script>
+  (function(){
+    // Load Benjamin.jpg as blob URL
+    fetch('./Benjamin.jpg')
+      .then(response => response.blob())
+      .then(blob => {
+        const blobUrl = URL.createObjectURL(blob);
+        const heroPortrait = document.querySelector('.hero-portrait');
+        const aboutPortrait = document.querySelector('.about-portrait');
+        const logoBg = document.querySelector('.circle-behind');
+        if (heroPortrait) heroPortrait.style.backgroundImage = `url('${blobUrl}')`;
+        if (aboutPortrait) aboutPortrait.style.backgroundImage = `url('${blobUrl}')`;
+        if (logoBg) logoBg.style.backgroundImage = `url('${blobUrl}')`;
+      })
+      .catch(err => console.log('Image load error:', err));
+    
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => mobileMenu.classList.toggle('active'));
+    document.querySelectorAll('.mobile-menu a').forEach(link => link.addEventListener('click', ()=> mobileMenu.classList.remove('active')));
+
+    // Skills rings
+    const skills = [
+      { name: 'WordPress Mastery', val: 98, color: '#00D4FF' },
+      { name: 'Custom Development', val: 96, color: '#FF4D00' },
+      { name: 'UI/UX Design', val: 97, color: '#00D4FF' },
+      { name: 'Tailwind / Framer', val: 95, color: '#FF4D00' },
+      { name: 'Figma', val: 96, color: '#00D4FF' },
+      { name: 'JavaScript & React', val: 97, color: '#FF4D00' },
+      { name: 'SEO & Performance', val: 98, color: '#00D4FF' },
+      { name: 'Branding & Strategy', val: 95, color: '#FFD700' }
+    ];
+    const container = document.getElementById('skillsContainer');
+    skills.forEach(s => {
+      const div = document.createElement('div'); div.className='skill-item';
+      const svg = `<svg viewBox="0 0 36 36" class="progress-ring"><path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#333" stroke-width="2"/><path stroke="${s.color}" stroke-dasharray="${s.val}, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="2.8" stroke-linecap="round"/><text x="18" y="22" text-anchor="middle" fill="#F5F5F5" font-size="6" font-weight="bold">${s.val}%</text></svg>`;
+      div.innerHTML = svg + `<div class="skill-label">${s.name}</div>`;
+      container.appendChild(div);
+    });
+
+    // Portfolio data
+    const projects = [
+      { title:'Ajan Qerimi - Travel Site', desc:'Beautiful travel & photography portfolio with dynamic galleries', tech:['HTML5','CSS3','JavaScript']},
+      { title:'Propper Pizza', desc:'Restaurant e-commerce with menu builder and delivery system', tech:['WordPress','WooCommerce']},
+      { title:'Vatra E Dituris', desc:'Educational school management system with student portal', tech:['HTML5','CSS','JavaScript']},
+      { title:'Relax Furniture', desc:'Furniture showroom with 3D product viewers and AR preview', tech:['React','Three.js']},
+      { title:'Digital Portfolio', desc:'Creative agency site showcasing web and UI design work', tech:['React','GSAP']},
+      { title:'E-Commerce Platform', desc:'Custom multi-vendor marketplace with payment integration', tech:['Node.js','MongoDB']}
+    ];
+    const grid = document.getElementById('portfolioGrid');
+    projects.forEach(p => {
+      const card = document.createElement('div'); card.className='project-card';
+      card.innerHTML = `<div class="card-circle-mask"><i class="fas fa-code" style="font-size:2rem;"></i></div>
+        <h3 class="project-title">${p.title}</h3><p>${p.desc}</p>
+        <div class="tech-tags">${p.tech.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+        <div class="card-links"><a href="#" class="btn" style="padding:0.5rem 1.5rem; background:var(--cyan); color:black;">LIVE</a><a href="#" style="color:var(--gold);">Case Study →</a></div>`;
+      grid.appendChild(card);
+    });
+
+    // Mottos with language support
+    const mottoData = {
+      en: ["Excellence is not an act, but a habit.","Design with strength. Deliver with fire.","Bold moves create legendary results.","Code with precision. Build with power.","Never settle. Dominate.","Circles of influence.","Vibrant. Masculine. Unforgettable.","Architect of digital empires."],
+      sq: ["Përsosmëria s'është akt, por zakon.","Dizajno me forcë. Dorëzo me zjarr.","Lëvizjet e guximshme krijojnë rezultate legjendare.","Kodo me precizion. Ndërto me fuqi.","Asnjëherë mos u kënaq. Domino.","Rrethe ndikimi.","Energjik. Mashkullor. I paharrueshëm.","Arkitekt i perandorive digjitale."]
+    };
+    let currentLang = 'en';
+    const mottoGrid = document.getElementById('mottoGrid');
+    function renderMottos(lang){
+      const arr = mottoData[lang];
+      mottoGrid.innerHTML = '';
+      arr.forEach(text => {
+        const circle = document.createElement('div'); circle.className='motto-circle';
+        circle.innerHTML = `<p style="font-weight:600;">“${text}”</p><small style="color:var(--cyan); margin-top:10px;">${lang.toUpperCase()}</small>`;
+        mottoGrid.appendChild(circle);
+      });
+    }
+    renderMottos('en');
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', function(){
+        document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+        this.classList.add('active');
+        currentLang = this.dataset.lang;
+        renderMottos(currentLang);
+      });
+    });
+
+    // Scroll progress circle
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 360;
+      document.getElementById('progressCircle').style.background = `conic-gradient(#00D4FF ${scrolled}deg, #2a2a2a ${scrolled}deg)`;
+    });
+
+    // GSAP animations
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.from('.hero-title', { opacity:0, y:60, duration:1 });
+    gsap.from('.hero-portrait', { scale:0.8, opacity:0, duration:1 });
+    gsap.utils.toArray('section').forEach(section => {
+      gsap.from(section, { scrollTrigger: section, opacity:0, y:50, duration:1 });
+    });
+  })();
+</script>
+<!-- subtle SVG circle rings (static background) -->
+<svg style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1; opacity:0.03;" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="20%" cy="30%" r="200" stroke="#00D4FF" fill="none" stroke-width="1" stroke-dasharray="8 8"/>
+  <circle cx="80%" cy="70%" r="350" stroke="#FF4D00" fill="none" stroke-width="1.5" stroke-dasharray="12 12"/>
+  <circle cx="60%" cy="20%" r="150" stroke="#FFD700" fill="none" stroke-width="2"/>
+</svg>
+</body>
+</html>
